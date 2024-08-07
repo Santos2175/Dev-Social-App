@@ -4,7 +4,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Santosh Gurung",
   "license": "ISC",
@@ -17,6 +19,7 @@
     "gravatar": "^1.8.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
+    "react-router-dom": "^6.26.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
