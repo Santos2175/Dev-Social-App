@@ -5,6 +5,8 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 //redux
 import { Provider } from 'react-redux';
@@ -33,6 +35,10 @@ function App() {
           <Route path='/' element={<Landing />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route
+            path='/dashboard'
+            element={<PrivateRoute component={Dashboard} />} //stay in dashboard if authenticated
+          />
         </Routes>
       </Router>
     </Provider>
