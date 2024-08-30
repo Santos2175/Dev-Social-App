@@ -1,25 +1,63 @@
-import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-const CreateProfile = (props) => {
-  const [formData, setFormData] = useState({
-    company: '',
-    website: '',
-    location: '',
-    status: '',
-    skills: '',
-    githubusername: '',
-    bio: '',
-    twitter: '',
-    facebook: '',
-    linkedin: '',
-    youtube: '',
-    instagram: '',
-  });
+/*
+  NOTE: declare initialState outside of component
+  so that it doesn't trigger a useEffect
+  we can then safely use this to construct our profileData
+ */
+const initialState = {
+  company: '',
+  website: '',
+  location: '',
+  status: '',
+  skills: '',
+  githubusername: '',
+  bio: '',
+  twitter: '',
+  facebook: '',
+  linkedin: '',
+  youtube: '',
+  instagram: '',
+};
+
+const ProfileForm = ({
+  profile: { profile, loading },
+  createProfile,
+  getCurrentProfile,
+}) => {
+  const [formData, setFormData] = useState(initialState);
+
+  const creatingProfile = useMatch('/create-profile');
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if there is no profile, attempt to fetch one
+    if (!profile) getCurrentProfile();
+
+    // if we finished loading and we do have a profile
+    // then build our profileData
+    if (!loading && profile) {
+      const profileData = { ...initialState };
+      for (const key in profile) {
+        if (key in profileData) profileData[key] = profile[key];
+      }
+      for (const key in profile.social) {
+        if (key in profileData) profileData[key] = profile.social[key];
+      }
+      // the skills may be an array from our API response
+      if (Array.isArray(profileData.skills))
+        profileData.skills = profileData.skills.join(', ');
+      // set local state with the profileData
+      setFormData(profileData);
+    }
+  }, [loading, getCurrentProfile, profile]);
 
   const {
     company,
@@ -36,22 +74,27 @@ const CreateProfile = (props) => {
     instagram,
   } = formData;
 
-  const onChange = (e) => {
+  const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
-  const onSubmit = () => {};
+  const onSubmit = (e) => {
+    const editing = profile ? true : false;
+    e.preventDefault();
+    createProfile(formData, editing).then(() => {
+      if (!editing) navigate('/dashboard');
+    });
+  };
 
   return (
     <section className='container'>
       <h1 className='large text-primary'>
-        {/* {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'} */}
+        {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
       </h1>
       <p className='lead'>
         <i className='fas fa-user' />
-        {/* {creatingProfile
+        {creatingProfile
           ? ` Let's get some information to make your`
-          : ' Add some changes to your profile'} */}
+          : ' Add some changes to your profile'}
       </p>
       <small>* = required field</small>
       <form className='form' onSubmit={onSubmit}>
@@ -104,7 +147,7 @@ const CreateProfile = (props) => {
             onChange={onChange}
           />
           <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
+            City & state suggested (eg. kathmandu, Bagmati)
           </small>
         </div>
         <div className='form-group'>
@@ -220,6 +263,16 @@ const CreateProfile = (props) => {
   );
 };
 
-CreateProfile.propTypes = {};
+ProfileForm.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+};
 
-export default CreateProfile;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  ProfileForm
+);
