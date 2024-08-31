@@ -10,7 +10,7 @@ const app = express();
 connectDB();
 
 //setting middlewares
-app.use(express.json({ extended: false }));
+app.use(express.json({ extended: true }));
 app.use(cors());
 
 //Define Routes

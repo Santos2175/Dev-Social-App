@@ -10,7 +10,6 @@ const Profiles = ({ profile: { profiles, loading }, getProfiles }) => {
     getProfiles();
   }, [getProfiles]);
 
-  console.log(profiles);
   return (
     <section className='container'>
       {loading ? (

@@ -28,7 +28,6 @@ function profileReducer(state = initialState, action) {
       };
 
     case GET_PROFILES:
-      console.log('Payload', payload);
       return {
         ...state,
         profiles: payload,
