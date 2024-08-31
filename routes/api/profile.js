@@ -6,6 +6,7 @@ const config = require('config');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 const router = Router();
 
@@ -157,7 +158,8 @@ router.get('/user/:user_id', async (req, res) => {
 //@access  Private
 router.delete('/', auth, async (req, res) => {
   try {
-    //@todo - romove users posts
+    //remove users post
+    await Post.deleteMany({ user: req.user.id });
 
     //romove profile
     await Profile.findOneAndDelete({ user: req.user.id });
