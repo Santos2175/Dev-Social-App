@@ -17,8 +17,9 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+
   color: #333;
+  background: linear-gradient(to right, #edecec, #cff3f8);
 }
 
 a {
@@ -138,6 +139,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .badge {
@@ -235,6 +237,21 @@ img {
   height: 100%;
 }
 
+/* login and register layout */
+.login,
+.register {
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login_btn,
+.register_btn {
+  width: 150px;
+  text-transform: uppercase;
+  align-self: center;
+}
+
 /* Forms */
 .form .form-group {
   margin: 1.2rem 0;
@@ -253,6 +270,7 @@ img {
 .form select,
 .form textarea {
   display: block;
+  border-radius: 3px;
   width: 100%;
   padding: 0.4rem;
   font-size: 1.2rem;
@@ -288,6 +306,15 @@ button {
 }
 .form .social-input i.fa-linkedin {
   color: #0077b5;
+}
+
+.form select:focus,
+.form textarea:focus,
+.form input:focus {
+  border: 0;
+  outline: none;
+  border-color: #1d80cb;
+  box-shadow: 0 0 0 0.2rem rgba(56, 161, 243, 0.25);
 }
 
 .table th,
@@ -335,7 +362,7 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-  background: url('./img/showcase.jpg') no-repeat center center/cover;
+  background: url('./img/background-img.jpg') no-repeat center center/cover;
   height: 100vh;
 }
 
@@ -359,7 +386,10 @@ button {
   grid-gap: 2rem;
   padding: 1rem;
   line-height: 1.8;
+  border-radius: 6px;
   margin-bottom: 1rem;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Profile Page */
@@ -371,6 +401,15 @@ button {
     'exp edu'
     'github github';
   grid-gap: 1rem;
+}
+
+.profile-top,
+.profile-about,
+.profile-exp,
+.profile-edu,
+.post {
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .profile-top {
@@ -485,9 +524,13 @@ button {
 }
 
 .post .post-date {
-  color: #aaa;
+  color: #999797;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
+}
+
+.post-form__title {
+  border-radius: 5px;
 }
 
 /* Mobile Styles */

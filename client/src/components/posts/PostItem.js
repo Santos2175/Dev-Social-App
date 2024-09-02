@@ -11,7 +11,7 @@ const PostItem = ({
   removeLike,
   deletePost,
   post: { _id, text, name, avatar, user, likes, comments, date },
-  showActions,
+  showActions = true,
 }) => {
   const hasLiked = likes.some(
     (like) => like.user.toString() === auth.user._id.toString()
@@ -49,7 +49,15 @@ const PostItem = ({
             <i className='fas fa-thumbs-down' />
           </button>
           <Link to={`/posts/${_id}`} className='btn btn-primary'>
-            Discussion {comments.length > 0 && <span>{comments.length}</span>}
+            {comments.length > 0 ? (
+              comments.length === 1 ? (
+                <span>{comments.length} Comment</span>
+              ) : (
+                <span>{comments.length} Comments</span>
+              )
+            ) : (
+              <span>Comment</span>
+            )}
           </Link>
           {showActions && !auth.loading && user === auth.user._id && (
             <button

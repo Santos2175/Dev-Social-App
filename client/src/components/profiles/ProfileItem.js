@@ -25,7 +25,6 @@ const ProfileItem = ({
         </Link>
       </div>
       <div>
-        <h3>Skills</h3>
         <ul>
           {skills.slice(0, 4).map((skill, index) => (
             <li key={index} className='text-primary'>

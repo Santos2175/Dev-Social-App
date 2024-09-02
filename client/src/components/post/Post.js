@@ -22,7 +22,14 @@ const Post = ({ getPost, post: { post, loading } }) => {
       </Link>
       <PostItem post={post} showActions={false} />
       <CommentForm postId={post._id} />
-      <p>Comments...</p>
+      <div>
+        {post.comments.length > 0 ? (
+          <span className='text-primary p-1'>Comments...</span>
+        ) : (
+          <span className='text-primary p-1'>No comments...</span>
+        )}
+      </div>
+
       <div className='comments'>
         {post.comments.map((comment) => (
           <CommentItem key={comment._id} comment={comment} postId={post._id} />

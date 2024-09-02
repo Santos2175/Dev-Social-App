@@ -25,7 +25,10 @@ const Dashboard = ({
       <Fragment>
         <h1 className='large text-primary'>Dashboard</h1>
         <p className='lead'>
-          <i className='fas fa-user'></i> Welcome {user && user.name}
+          <i className='fas fa-user'></i> Welcome{' '}
+          <span className='text-primary'>
+            <strong>{user && user.name}</strong>
+          </span>
         </p>
 
         {profile !== null ? (
