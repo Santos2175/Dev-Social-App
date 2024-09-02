@@ -88,6 +88,10 @@ img {
 .p-3 {
   padding: 3rem;
 }
+
+.px-1 {
+  padding: 0 0.5rem;
+}
 .py {
   padding: 0.5rem 0;
 }
@@ -308,12 +312,17 @@ button {
   color: #0077b5;
 }
 
+.form textarea {
+  padding: 1rem 1.5rem;
+}
+
 .form select:focus,
 .form textarea:focus,
 .form input:focus {
   border: 0;
   outline: none;
   border-color: #1d80cb;
+
   box-shadow: 0 0 0 0.2rem rgba(56, 161, 243, 0.25);
 }
 
