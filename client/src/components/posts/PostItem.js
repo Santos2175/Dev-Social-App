@@ -11,23 +11,11 @@ const PostItem = ({
   removeLike,
   deletePost,
   post: { _id, text, name, avatar, user, likes, comments, date },
+  showActions,
 }) => {
-  //   const hasLiked = likes.some(
-  //     (like) => like.user.toString() === auth.user._id.toString()
-  //   );
-
-  //   const handleLikeClick = () => {
-  //     if (hasLiked) return;
-
-  //     addLike(_id);
-  //   };
-
-  //   const handleUnlikeClick = () => {
-  //     if (!hasLiked) {
-  //       return;
-  //     }
-  //     removeLike(_id);
-  //   };
+  const hasLiked = likes.some(
+    (like) => like.user.toString() === auth.user._id.toString()
+  );
   return (
     <div className='post bg-white p-1 my-1'>
       <div>
@@ -41,30 +29,37 @@ const PostItem = ({
         <p>
           Posted on <Moment format='MMMM DD, YYYY hh:mm A'>{date}</Moment>
         </p>
-        <button
-          onClick={(e) => addLike(_id)}
-          type='button'
-          className='btn btn-light'>
-          <i className='fas fa-thumbs-up' />{' '}
-          <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-        </button>
-        <button
-          onClick={(e) => removeLike(_id)}
-          type='button'
-          className='btn btn-light'>
-          <i className='fas fa-thumbs-down' />
-        </button>
-        <Link to={`/posts/${_id}`} className='btn btn-primary'>
-          Discussion {comments.length > 0 && <span>{comments.length}</span>}
-        </Link>
-        {!auth.loading && user === auth.user._id && (
+        <hr />
+
+        <div className='m'>
           <button
-            onClick={(e) => deletePost(_id)}
+            onClick={(e) => addLike(_id)}
             type='button'
-            className='btn btn-danger'>
-            <i className='fas fa-times' />
+            className='btn btn-light'>
+            <i
+              className='fas fa-thumbs-up'
+              style={{ color: hasLiked ? 'var(--primary-color)' : 'black' }}
+            />{' '}
+            <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
           </button>
-        )}
+          <button
+            onClick={(e) => removeLike(_id)}
+            type='button'
+            className='btn btn-light'>
+            <i className='fas fa-thumbs-down' />
+          </button>
+          <Link to={`/posts/${_id}`} className='btn btn-primary'>
+            Discussion {comments.length > 0 && <span>{comments.length}</span>}
+          </Link>
+          {showActions && !auth.loading && user === auth.user._id && (
+            <button
+              onClick={(e) => deletePost(_id)}
+              type='button'
+              className='btn btn-danger'>
+              Delete
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -76,6 +71,7 @@ PostItem.propTypes = {
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  showActions: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

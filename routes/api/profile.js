@@ -3,11 +3,16 @@ const auth = require('../../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 const request = require('request');
 const config = require('config');
-const normalize = () => import('normalize-url');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
+
+//dynamically importing normalize-url
+let normalizeUrl;
+(async () => {
+  normalizeUrl = (await import('normalize-url')).default;
+})();
 
 const router = Router();
 
@@ -63,7 +68,7 @@ router.post(
       user: req.user.id,
       website:
         website && website !== ''
-          ? normalize(website, { forceHttps: true })
+          ? normalizeUrl(website, { forceHttps: true })
           : '',
       skills: Array.isArray(skills)
         ? skills
@@ -77,7 +82,7 @@ router.post(
     // normalize social fields to ensure valid url
     for (const [key, value] of Object.entries(socialFields)) {
       if (value && value.length > 0)
-        socialFields[key] = normalize(value, { forceHttps: true });
+        socialFields[key] = normalizeUrl(value, { forceHttps: true });
     }
     // add to profileFields
     profileFields.social = socialFields;
@@ -293,6 +298,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
   }
 });
 
+//@todo - future implementation
 // @route   GET api/profile/github/username
 // @desc    get user repos from github
 //@access   Public
