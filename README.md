@@ -1,4 +1,4 @@
-# Developer Community - [Live Demo](https://dev-social-app.onrender.com/)
+# Developer Community - [Visit Website](https://dev-social-app.onrender.com/)
 
 ## Table of Contents
 
