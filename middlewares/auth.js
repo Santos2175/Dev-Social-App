@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 module.exports = (req, res, next) => {
   //get token
@@ -12,7 +11,7 @@ module.exports = (req, res, next) => {
 
   //verify token
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.REACT_APP_JWT_SECRET);
 
     req.user = decoded.user;
     next();
