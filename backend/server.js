@@ -15,9 +15,9 @@ app.use(express.json({ extended: true }));
 app.use(cors());
 
 //Define Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/users', require('./routes/api/users.js'));
+app.use('/api/auth', require('./routes/api/auth.js'));
+app.use('/api/profile', require('./routes/api/profile.js'));
+app.use('/api/posts', require('./routes/api/posts.js'));
 
 app.listen(PORT, () => console.log('server started at PORT: ', PORT));
