@@ -1,4 +1,4 @@
-# Developer Community - [Visit Website](https://dev-social-app.onrender.com/)
+# Developer Community - [Visit Website](https://dev-social-app.onrender.com/)    
 
 ## Table of Contents
 
@@ -118,3 +118,5 @@ For any questions or feedback:
 
 - **Your Name** - [santoshgurung2175@gmail.com](mailto:santoshgurung2175@gmail.com)
 - **GitHub** - [https://github.com/Santos2175](https://github.com/Santos2175)
+
+### **⚠️ Note:** The website may take time for initial loading as it is using free hosting service
