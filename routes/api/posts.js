@@ -4,7 +4,6 @@ const auth = require('../../middlewares/auth');
 
 const Post = require('../../models/Post');
 const User = require('../../models/User');
-const Profile = require('../../models/Profile');
 
 const router = Router();
 

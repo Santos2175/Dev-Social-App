@@ -1,13 +1,12 @@
 const { Router } = require('express');
-const router = Router();
 const auth = require('../../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
-const config = require('config');
 const jwt = require('jsonwebtoken');
 
 const User = require('../../models/User');
-const Profile = require('../../models/Profile');
+
+const router = Router();
 
 //@route   GET api/auth
 //@desc    test route
@@ -62,7 +61,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        process.env.REACT_APP_JWT_SECRET,
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;

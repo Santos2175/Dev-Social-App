@@ -4,7 +4,6 @@ const router = Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 const User = require('../../models/User');
 
@@ -63,9 +62,9 @@ router.post(
         },
       };
 
-      const token = jwt.sign(
+      jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        process.env.REACT_APP_JWT_SECRET,
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
